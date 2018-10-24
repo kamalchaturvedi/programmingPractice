@@ -1,4 +1,4 @@
-class Solution {
+class ZigZagConversion {
     public String convert(String s, int numRows) {
         int columnCount = (s.length()/numRows);
         if(numRows > 1){
