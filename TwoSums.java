@@ -1,4 +1,4 @@
-class Solution {
+class TwoSums {
     public int[] twoSum(int[] nums, int target) {
         Map<Integer,Integer> complementCheck = new HashMap<Integer, Integer>();
         int complement = 0;
