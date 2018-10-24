@@ -1,4 +1,4 @@
-class Solution {
+class SumTwoLinkedLists {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int carry = 0, sum = 0;
         ListNode output = null, header = null, nonEmptyList=null;
