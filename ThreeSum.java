@@ -11,43 +11,34 @@ class ThreeSum {
 	}
 
 	public static List<List<Integer>> threeSum(int[] nums) {
-		Map<String, List<Integer>> mapping = new HashMap<String, List<Integer>>();
-		List<List<Integer>> output = new ArrayList<List<Integer>>();
-		Arrays.sort(nums);
-		if (nums.length >= 3) {
-			int start = 0, end = nums.length - 1;
-			getOutputElements(nums, start, end, mapping);
-		}
-		for (Map.Entry<String, List<Integer>> entry : mapping.entrySet()) {
-			output.add(entry.getValue());
-		}
-		return output;
-	}
-
-	static void getOutputElements(int[] nums, int start, int end, Map<String, List<Integer>> mapping) {
-		if(end - start < 2){
-            return;
-        }
-        else{
-            int midElementIndex = findThirdEligibleElement(nums, 0 - (nums[start]+nums[end]),start+ 1, end - 1);
-            if(midElementIndex != -1){
-                mapping.put(String.valueOf(nums[start]) + String.valueOf(nums[midElementIndex]) + String.valueOf(nums[end]), Arrays.asList(nums[start],nums[midElementIndex],nums[end]));
+        	Map<String,List<Integer>> mapping = new HashMap<String,List<Integer>>();
+        	List<List<Integer>> output = new ArrayList();
+        	Arrays.sort(nums);
+        	if(nums.length >= 3){
+            		getOutputElements(nums, mapping);
+        	}
+        	for(Map.Entry<String,List<Integer>> entry:mapping.entrySet()){
+            		output.add(entry.getValue());
+        	}
+        	return output;
+    }
+    static void getOutputElements(int[] nums, Map<String,List<Integer>> mapping){
+        int first,last,sum;
+        for(int i = 0; i< (nums.length-2);i++){
+            first = i+1;
+            last = nums.length - 1;
+            while(first < last){
+                sum = nums[i] + nums[first] + nums[last];
+                if(sum == 0){
+                    mapping.put(String.valueOf(nums[i])+String.valueOf(nums[first])+String.valueOf(nums[last]), Arrays.asList(nums[i] ,nums[first],nums[last]));
+                    ++first;
+                    --last;
+                }
+                if(sum > 0)
+                    --last;
+                else if(sum < 0)
+                    ++first;
             }
-            getOutputElements(nums, start+1, end, mapping);
-            getOutputElements(nums, start, end-1, mapping);
         }
-	}
-
-	static int findThirdEligibleElement(int[] nums, int value, int start, int end) {
-		if (start > end) {
-			return -1;
-		}
-		int mid = (start + end) / 2;
-		if (nums[mid] == value) {
-			return mid;
-		} else if (nums[mid] > value) {
-			return findThirdEligibleElement(nums, value, start, mid - 1);
-		} else
-			return findThirdEligibleElement(nums, value, mid + 1, end);
-	}
+    }
 }
